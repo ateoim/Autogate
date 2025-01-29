@@ -3,16 +3,10 @@ import { Button } from "@/components/ui/button";
 export function Hero() {
   return (
     <section className="relative min-h-[80vh] bg-primary">
-      {/* 
-        To add your gate image:
-        1. Upload your image to the 'client/public' folder
-        2. Replace the 'backgroundImage' URL below with your image path
-        For example: if your image is named 'gate.jpg', use: url("/gate.jpg")
-      */}
       <div 
         className="absolute inset-0 bg-center bg-cover bg-no-repeat"
         style={{
-          backgroundImage: `url("/your-gate-image.jpg")`, // Add your image path here
+          backgroundImage: `url("/automatic-gate.jpg")`,
         }}
       >
         {/* Dark overlay to ensure text readability */}
