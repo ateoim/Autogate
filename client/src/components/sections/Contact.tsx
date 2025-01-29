@@ -83,10 +83,7 @@ export function Contact() {
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
+                      <div className="space-y-4">
                         <FormField
                           control={form.control}
                           name="name"
@@ -100,11 +97,8 @@ export function Contact() {
                             </FormItem>
                           )}
                         />
-                      </motion.div>
-                      <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
+                      </div>
+                      <div className="space-y-4">
                         <FormField
                           control={form.control}
                           name="phone"
@@ -118,13 +112,10 @@ export function Contact() {
                             </FormItem>
                           )}
                         />
-                      </motion.div>
+                      </div>
                     </div>
 
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
+                    <div className="space-y-4">
                       <FormField
                         control={form.control}
                         name="email"
@@ -138,12 +129,9 @@ export function Contact() {
                           </FormItem>
                         )}
                       />
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
+                    <div className="space-y-4">
                       <FormField
                         control={form.control}
                         name="serviceType"
@@ -152,7 +140,7 @@ export function Contact() {
                             <FormLabel>Service Type</FormLabel>
                             <Select
                               onValueChange={field.onChange}
-                              defaultValue={field.value}
+                              value={field.value}
                             >
                               <FormControl>
                                 <SelectTrigger>
@@ -170,12 +158,9 @@ export function Contact() {
                           </FormItem>
                         )}
                       />
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
+                    <div className="space-y-4">
                       <FormField
                         control={form.control}
                         name="message"
@@ -193,11 +178,11 @@ export function Contact() {
                           </FormItem>
                         )}
                       />
-                    </motion.div>
+                    </div>
 
                     <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       <Button type="submit" className="w-full" size="lg">
                         Send Message
