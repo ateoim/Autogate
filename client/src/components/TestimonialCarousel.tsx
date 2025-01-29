@@ -9,19 +9,22 @@ const TESTIMONIALS = [
     author: "Marcus Julius",
     role: "Local Guide",
     rating: 5,
+    date: "a month ago",
     text: "Nothing but positive to say about Mo, from he's very professional and determined approached, to his prompt communication and punctuality. Mo helped sourcing and programming new remotes and spent hours as we had a very old system where other companies had failed."
   },
   {
-    author: "Sarah Thompson",
+    author: "Thomas Anderson",
     role: "Customer",
     rating: 5,
-    text: "Excellent service! The team was professional, arrived on time, and fixed our gate automation system quickly. Very knowledgeable about BFT systems."
+    date: "2 months ago",
+    text: "Excellent service from start to finish. Had an issue with my automatic gate and they were quick to respond and fix the problem. Very professional and knowledgeable about gate systems."
   },
   {
-    author: "Michael Chen",
+    author: "Emma Thompson",
     role: "Business Owner",
     rating: 5,
-    text: "Titan AutoGate provided outstanding service for our commercial property. Their expertise in access control systems and prompt response time was impressive."
+    date: "3 months ago",
+    text: "Great service! They helped us with our commercial property gate installation. Very professional team and excellent communication throughout the process."
   }
 ];
 
@@ -30,7 +33,7 @@ export function TestimonialCarousel() {
     loop: true,
     align: "center",
   });
-  
+
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
@@ -63,13 +66,13 @@ export function TestimonialCarousel() {
                 <blockquote className="text-lg text-gray-700 mb-6">
                   "{testimonial.text}"
                 </blockquote>
-                <div className="flex items-center">
+                <div className="flex items-center justify-between">
                   <div>
                     <div className="font-semibold text-gray-900">
                       {testimonial.author}
                     </div>
                     <div className="text-sm text-gray-500">
-                      {testimonial.role}
+                      {testimonial.role} • {testimonial.date}
                     </div>
                   </div>
                 </div>
