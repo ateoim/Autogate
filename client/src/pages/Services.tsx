@@ -2,6 +2,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Settings, SlidersHorizontal, Radio, Shield, Clock, Users, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Services() {
   const mainServices = [
@@ -84,53 +85,110 @@ export default function Services() {
           {/* Main Services */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
             {mainServices.map((service, index) => (
-              <Card key={index} className="relative group hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-4">
-                    <service.icon className="h-8 w-8 text-primary" />
-                    <h3 className="text-2xl font-semibold">{service.title}</h3>
-                  </div>
-                  <p className="text-gray-600">{service.description}</p>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <span className="text-primary">✓</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2 }}
+                whileHover={{ scale: 1.02 }}
+                className="relative"
+              >
+                <Card className="h-full overflow-hidden">
+                  <CardHeader>
+                    <div className="flex items-center gap-3 mb-4">
+                      <motion.div
+                        whileHover={{ scale: 1.1, rotate: 360 }}
+                        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                        className="p-2 rounded-full bg-primary/10"
+                      >
+                        <service.icon className="h-8 w-8 text-primary" />
+                      </motion.div>
+                      <h3 className="text-2xl font-semibold">{service.title}</h3>
+                    </div>
+                    <p className="text-gray-600">{service.description}</p>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {service.features.map((feature, idx) => (
+                        <motion.li
+                          key={idx}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: (index * 0.2) + (idx * 0.1) }}
+                          className="flex items-center gap-2"
+                        >
+                          <motion.span 
+                            className="text-primary"
+                            whileHover={{ scale: 1.2 }}
+                          >
+                            ✓
+                          </motion.span>
+                          {feature}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
 
           {/* Service Highlights */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
             {highlights.map((highlight, index) => (
-              <Card key={index} className="text-center p-6">
-                <highlight.icon className="h-12 w-12 mx-auto mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2">{highlight.title}</h3>
-                <p className="text-gray-600">{highlight.description}</p>
-              </Card>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <Card className="text-center p-6 h-full">
+                  <motion.div
+                    whileHover={{ scale: 1.2, rotate: 360 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                    className="mx-auto mb-4"
+                  >
+                    <highlight.icon className="h-12 w-12 text-primary" />
+                  </motion.div>
+                  <h3 className="text-xl font-semibold mb-2">{highlight.title}</h3>
+                  <p className="text-gray-600">{highlight.description}</p>
+                </Card>
+              </motion.div>
             ))}
           </div>
 
           {/* Service Areas */}
-          <section className="bg-gray-50 rounded-lg p-8">
+          <motion.section 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="bg-gray-50 rounded-lg p-8"
+          >
             <div className="flex items-center gap-3 mb-6">
-              <MapPin className="h-8 w-8 text-primary" />
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 360 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              >
+                <MapPin className="h-8 w-8 text-primary" />
+              </motion.div>
               <h2 className="text-2xl font-semibold">Service Areas in Melbourne</h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {serviceAreas.map((area, index) => (
-                <div key={index} className="text-gray-600">
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="text-gray-600 hover:text-primary transition-colors"
+                >
                   {area}
-                </div>
+                </motion.div>
               ))}
             </div>
-          </section>
+          </motion.section>
         </div>
       </main>
       <Footer />
