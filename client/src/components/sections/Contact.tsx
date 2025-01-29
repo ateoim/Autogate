@@ -11,16 +11,39 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().min(1, "Phone number is required"),
+  serviceType: z.string().min(1, "Please select a service type"),
+  message: z.string().min(1, "Message is required"),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export function Contact() {
   const { toast } = useToast();
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      serviceType: "",
+      message: "",
+    },
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (data: FormData) => {
     toast({
       title: "Message sent",
-      description: "We'll get back to you as soon as possible."
+      description: "We'll get back to you as soon as possible.",
     });
+    form.reset();
   };
 
   return (
@@ -49,21 +72,34 @@ export function Contact() {
                 <CardTitle className="text-2xl text-center">Contact Form</CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <motion.div
                       whileHover={{ scale: 1.02 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
                       <label className="block mb-2 font-medium">Name</label>
-                      <Input required placeholder="Your name" />
+                      <Input 
+                        {...form.register("name")} 
+                        placeholder="Your name"
+                      />
+                      {form.formState.errors.name && (
+                        <p className="mt-1 text-sm text-red-500">{form.formState.errors.name.message}</p>
+                      )}
                     </motion.div>
                     <motion.div
                       whileHover={{ scale: 1.02 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
                       <label className="block mb-2 font-medium">Phone</label>
-                      <Input required type="tel" placeholder="Your phone number" />
+                      <Input 
+                        {...form.register("phone")}
+                        type="tel" 
+                        placeholder="Your phone number"
+                      />
+                      {form.formState.errors.phone && (
+                        <p className="mt-1 text-sm text-red-500">{form.formState.errors.phone.message}</p>
+                      )}
                     </motion.div>
                   </div>
 
@@ -72,7 +108,14 @@ export function Contact() {
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <label className="block mb-2 font-medium">Email</label>
-                    <Input required type="email" placeholder="Your email" />
+                    <Input 
+                      {...form.register("email")}
+                      type="email" 
+                      placeholder="Your email"
+                    />
+                    {form.formState.errors.email && (
+                      <p className="mt-1 text-sm text-red-500">{form.formState.errors.email.message}</p>
+                    )}
                   </motion.div>
 
                   <motion.div
@@ -80,7 +123,7 @@ export function Contact() {
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <label className="block mb-2 font-medium">Service Type</label>
-                    <Select>
+                    <Select onValueChange={(value) => form.setValue("serviceType", value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select a service" />
                       </SelectTrigger>
@@ -91,6 +134,9 @@ export function Contact() {
                         <SelectItem value="emergency">Emergency Repair</SelectItem>
                       </SelectContent>
                     </Select>
+                    {form.formState.errors.serviceType && (
+                      <p className="mt-1 text-sm text-red-500">{form.formState.errors.serviceType.message}</p>
+                    )}
                   </motion.div>
 
                   <motion.div
@@ -99,10 +145,13 @@ export function Contact() {
                   >
                     <label className="block mb-2 font-medium">Message</label>
                     <Textarea 
-                      required 
+                      {...form.register("message")}
                       placeholder="Please describe your gate issue or service needs" 
                       className="min-h-[120px]"
                     />
+                    {form.formState.errors.message && (
+                      <p className="mt-1 text-sm text-red-500">{form.formState.errors.message.message}</p>
+                    )}
                   </motion.div>
 
                   <motion.div
