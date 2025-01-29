@@ -5,15 +5,17 @@ export function Hero() {
     <section className="relative bg-gradient-to-br from-primary/90 to-blue-600/90 text-white min-h-[80vh]">
       <div className="absolute inset-0 bg-black/40" />
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0"
         style={{
           backgroundImage: 'url("/gate-image.jpg")',
           backgroundPosition: 'center',
           backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat'
+          backgroundRepeat: 'no-repeat',
+          opacity: 0.8,
+          zIndex: 0
         }}
       />
-      <div className="relative container mx-auto px-4 py-24">
+      <div className="relative container mx-auto px-4 py-24 z-10">
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             Melbourne's Premier Gate Automation Specialists
