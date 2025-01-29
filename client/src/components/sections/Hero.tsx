@@ -6,11 +6,11 @@ export function Hero() {
       <div 
         className="absolute inset-0 bg-center bg-cover bg-no-repeat"
         style={{
-          backgroundImage: `url("/automatic-gate.jpg")`,
+          backgroundImage: `url("/background2.jpg")`,
         }}
       >
         {/* Dark overlay to ensure text readability */}
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
       </div>
 
       {/* Content Section */}
