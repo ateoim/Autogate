@@ -2,21 +2,26 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-primary/90 to-blue-600/90 text-white min-h-[80vh]">
-      <div className="absolute inset-0 bg-black/40" />
+    <section className="relative min-h-[80vh] bg-primary">
+      {/* 
+        To add your gate image:
+        1. Upload your image to the 'client/public' folder
+        2. Replace the 'backgroundImage' URL below with your image path
+        For example: if your image is named 'gate.jpg', use: url("/gate.jpg")
+      */}
       <div 
-        className="absolute inset-0"
+        className="absolute inset-0 bg-center bg-cover bg-no-repeat"
         style={{
-          backgroundImage: 'url("/gate-image.jpg")',
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          opacity: 0.8,
-          zIndex: 0
+          backgroundImage: `url("/your-gate-image.jpg")`, // Add your image path here
         }}
-      />
-      <div className="relative container mx-auto px-4 py-24 z-10">
-        <div className="max-w-2xl">
+      >
+        {/* Dark overlay to ensure text readability */}
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      </div>
+
+      {/* Content Section */}
+      <div className="relative z-10 container mx-auto px-4 py-24">
+        <div className="max-w-2xl text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             Melbourne's Premier Gate Automation Specialists
           </h1>
