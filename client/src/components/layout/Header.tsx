@@ -1,22 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { Phone, Menu } from "lucide-react";
 import { useState } from "react";
+import { Link } from "wouter";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { href: "#services", label: "Services" },
-    { href: "#about", label: "About Us" },
-    { href: "#gallery", label: "Gallery" },
-    { href: "#contact", label: "Contact" }
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About Us" },
+    { href: "/gallery", label: "Gallery" },
+    { href: "/#contact", label: "Contact" }
   ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (href.startsWith('/#')) {
+      e.preventDefault();
+      const element = document.querySelector(href.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -24,12 +27,14 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="flex flex-col">
-              <span className="font-bold text-xl text-primary">Titan</span>
-              <span className="text-sm">AutoGate Repairs</span>
+          <Link href="/">
+            <div className="flex items-center gap-2 cursor-pointer">
+              <div className="flex flex-col">
+                <span className="font-bold text-xl text-primary">Titan</span>
+                <span className="text-sm">AutoGate Repairs</span>
+              </div>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
