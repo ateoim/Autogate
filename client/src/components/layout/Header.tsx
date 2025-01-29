@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Phone, Menu } from "lucide-react";
+import { Phone, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
 
@@ -22,6 +22,7 @@ export function Header() {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
+    setIsOpen(false); // Close mobile menu after clicking
   };
 
   return (
@@ -38,6 +39,18 @@ export function Header() {
             </div>
           </Link>
 
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 text-gray-600 hover:text-gray-900"
+          >
+            {isOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
@@ -53,8 +66,30 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
-            <a href="tel:0424454654" className="hidden md:flex items-center gap-2 hover:text-primary transition-colors">
+          {/* Mobile Navigation */}
+          {isOpen && (
+            <div className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b md:hidden">
+              <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => scrollToSection(e, item.href)}
+                    className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+                <a href="tel:0424454654" className="flex items-center gap-2 text-primary font-semibold">
+                  <Phone className="h-5 w-5" />
+                  0424 454 654
+                </a>
+              </nav>
+            </div>
+          )}
+
+          <div className="hidden md:flex items-center gap-4">
+            <a href="tel:0424454654" className="flex items-center gap-2 hover:text-primary transition-colors">
               <Phone className="h-5 w-5 text-primary" />
               <span className="font-semibold">0424 454 654</span>
             </a>
