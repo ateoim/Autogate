@@ -14,13 +14,28 @@ const TESTIMONIALS = [
     photo: "/reviews/marcus-julius.jpg",
     reviewCount: "67 reviews",
     photoCount: "184 photos",
-    text: "Nothing but positive to say about Mo, from he's very professional and determined approached, to his prompt communication and punctuality. Mo helped sourcing and programming new remotes and spent hours as we had a very old system where other companies had failed.",
-    response: {
-      text: "Thanks for your kind words Marcus. Helping customers is our top priority",
-      date: "a month ago"
-    }
+    text: "Nothing but positive to say about Mo, from he's very professional and determined approached, to his prompt communication and punctuality. Mo helped sourcing and programming new remotes and spent hours as we had a very old system where other companies had failed."
   },
-  // Add more testimonials here...
+  {
+    author: "John Smith",
+    role: "Local Guide",
+    rating: 5,
+    date: "2 months ago",
+    photo: "/reviews/john-smith.jpg",
+    reviewCount: "23 reviews",
+    photoCount: "45 photos",
+    text: "Professional service, excellent communication, and very knowledgeable about BFT gate systems. Highly recommend for any gate automation needs."
+  },
+  {
+    author: "Sarah Wilson",
+    role: "Customer",
+    rating: 5,
+    date: "3 months ago",
+    photo: "/reviews/sarah-wilson.jpg",
+    reviewCount: "8 reviews",
+    photoCount: "12 photos",
+    text: "Great service! Fixed our gate issue quickly and efficiently. Very reliable and professional company."
+  }
 ];
 
 export function TestimonialCarousel() {
@@ -79,17 +94,9 @@ export function TestimonialCarousel() {
                   <span className="ml-2 text-gray-500 text-sm">{testimonial.date}</span>
                 </div>
 
-                <blockquote className="text-lg text-gray-700 mb-6">
+                <blockquote className="text-lg text-gray-700">
                   "{testimonial.text}"
                 </blockquote>
-
-                {testimonial.response && (
-                  <div className="mt-4 bg-gray-50 p-4 rounded-lg">
-                    <p className="text-sm font-semibold mb-1">Response from the owner</p>
-                    <p className="text-sm text-gray-600">{testimonial.response.text}</p>
-                    <p className="text-xs text-gray-500 mt-2">{testimonial.response.date}</p>
-                  </div>
-                )}
               </div>
             </motion.div>
           ))}
