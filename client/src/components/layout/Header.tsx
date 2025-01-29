@@ -29,11 +29,12 @@ export function Header() {
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <Link href="/">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <div className="flex flex-col">
-                <span className="font-bold text-xl text-primary">Titan</span>
-                <span className="text-sm">AutoGate Repairs</span>
-              </div>
+            <div className="flex items-center cursor-pointer">
+              <img 
+                src="/titanlogo.png" 
+                alt="Titan AutoGate Repairs" 
+                className="h-12 w-auto"
+              />
             </div>
           </Link>
 
