@@ -7,24 +7,36 @@ export function Hero() {
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1651525670104-db1d3b13c3d9")',
+          backgroundImage: 'url("/gate-image.jpg")', 
           backgroundBlendMode: 'overlay'
         }}
       />
       <div className="relative container mx-auto px-4 py-24">
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Keep Gates Moving
+            Sydney's Premier Gate Automation Specialists
           </h1>
           <p className="text-xl mb-8 text-gray-100">
-            Sydney's trusted experts in automatic gate repairs and installations. Available 24/7 for emergency repairs.
+            Expert installation, repairs, and maintenance of automatic gates across Greater Sydney. 
+            With over 15 years of experience, we provide 24/7 emergency services for all gate automation systems.
           </p>
+          <ul className="mb-8 space-y-2">
+            <li className="flex items-center gap-2">
+              ✓ Same Day Service Available
+            </li>
+            <li className="flex items-center gap-2">
+              ✓ Licensed & Insured Professionals
+            </li>
+            <li className="flex items-center gap-2">
+              ✓ All Brands & Gate Types Serviced
+            </li>
+          </ul>
           <div className="flex gap-4">
-            <Button size="lg" asChild>
-              <a href="tel:0424454654">Call Now</a>
+            <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90">
+              <a href="tel:0424454654">Call Now: 0424 454 654</a>
             </Button>
             <Button size="lg" variant="outline" className="bg-white/10">
-              <a href="#services">Our Services</a>
+              <a href="#services">View Our Services</a>
             </Button>
           </div>
         </div>
