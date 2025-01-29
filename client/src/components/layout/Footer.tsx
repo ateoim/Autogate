@@ -18,7 +18,7 @@ export function Footer() {
               </a>
               <div className="flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
-                <span>Servicing Greater Sydney Area</span>
+                <span>Servicing Greater Melbourne Area</span>
               </div>
             </div>
           </div>

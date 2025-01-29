@@ -7,8 +7,10 @@ export function Hero() {
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: 'url("/automatic-gate.jpg")',
-          backgroundBlendMode: 'overlay'
+          backgroundImage: 'url("/gate-image.jpg")',
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
         }}
       />
       <div className="relative container mx-auto px-4 py-24">
