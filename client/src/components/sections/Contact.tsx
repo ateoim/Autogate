@@ -123,7 +123,14 @@ export function Contact() {
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <label className="block mb-2 font-medium">Service Type</label>
-                    <Select onValueChange={(value) => form.setValue("serviceType", value)}>
+                    <Select
+                      value={form.watch("serviceType")}
+                      onValueChange={(value) => {
+                        form.setValue("serviceType", value, {
+                          shouldValidate: true
+                        });
+                      }}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a service" />
                       </SelectTrigger>
