@@ -68,19 +68,22 @@ export function Header() {
 
           {/* Mobile Navigation */}
           {isOpen && (
-            <div className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b md:hidden">
-              <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+            <div className="absolute top-full left-0 right-0 bg-white/98 backdrop-blur supports-[backdrop-filter]:bg-white/95 border-b md:hidden shadow-lg">
+              <nav className="container mx-auto px-4 py-6 flex flex-col space-y-5">
                 {navItems.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}
                     onClick={(e) => scrollToSection(e, item.href)}
-                    className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                    className="text-base font-medium text-gray-900 hover:text-primary transition-colors py-1"
                   >
                     {item.label}
                   </a>
                 ))}
-                <a href="tel:0424454654" className="flex items-center gap-2 text-primary font-semibold">
+                <a 
+                  href="tel:0424454654" 
+                  className="flex items-center gap-2 text-primary font-semibold mt-4 py-2 border-t border-gray-100"
+                >
                   <Phone className="h-5 w-5" />
                   0424 454 654
                 </a>
