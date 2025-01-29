@@ -25,8 +25,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(1, "Phone number is required"),
+  email: z.string()
+    .min(1, "Email is required")
+    .includes("@", "Email must contain '@' symbol")
+    .email("Invalid email format"),
+  phone: z.string()
+    .min(1, "Phone number is required")
+    .regex(/^\d+$/, "Phone number must contain only digits"),
   serviceType: z.string().min(1, "Please select a service type"),
   message: z.string().min(1, "Message is required"),
 });
@@ -106,7 +111,16 @@ export function Contact() {
                             <FormItem>
                               <FormLabel>Phone</FormLabel>
                               <FormControl>
-                                <Input type="tel" placeholder="Your phone number" {...field} />
+                                <Input 
+                                  type="tel" 
+                                  placeholder="Your phone number" 
+                                  {...field}
+                                  onChange={(e) => {
+                                    // Only allow numeric input
+                                    const value = e.target.value.replace(/\D/g, '');
+                                    field.onChange(value);
+                                  }}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
