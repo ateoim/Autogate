@@ -6,7 +6,7 @@ export function Hero() {
       <div 
         className="absolute inset-0 bg-center bg-cover bg-no-repeat"
         style={{
-          backgroundImage: `url("/background2.jpg")`,
+          backgroundImage: `url("/automatic-gate.jpg")`,
         }}
       >
         {/* Dark overlay to ensure text readability */}
