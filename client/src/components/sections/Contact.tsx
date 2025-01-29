@@ -4,6 +4,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -72,104 +80,131 @@ export function Contact() {
                 <CardTitle className="text-2xl text-center">Contact Form</CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <FormField
+                          control={form.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Name</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Your name" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <FormField
+                          control={form.control}
+                          name="phone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Phone</FormLabel>
+                              <FormControl>
+                                <Input type="tel" placeholder="Your phone number" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </motion.div>
+                    </div>
+
                     <motion.div
                       whileHover={{ scale: 1.02 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <label className="block mb-2 font-medium">Name</label>
-                      <Input 
-                        {...form.register("name")} 
-                        placeholder="Your name"
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                              <Input type="email" placeholder="Your email" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                      {form.formState.errors.name && (
-                        <p className="mt-1 text-sm text-red-500">{form.formState.errors.name.message}</p>
-                      )}
                     </motion.div>
+
                     <motion.div
                       whileHover={{ scale: 1.02 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <label className="block mb-2 font-medium">Phone</label>
-                      <Input 
-                        {...form.register("phone")}
-                        type="tel" 
-                        placeholder="Your phone number"
+                      <FormField
+                        control={form.control}
+                        name="serviceType"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Service Type</FormLabel>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select a service" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="sliding">Sliding Gate Service</SelectItem>
+                                <SelectItem value="swing">Swing Gate Service</SelectItem>
+                                <SelectItem value="remote">Remote & Access Control</SelectItem>
+                                <SelectItem value="emergency">Emergency Repair</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                      {form.formState.errors.phone && (
-                        <p className="mt-1 text-sm text-red-500">{form.formState.errors.phone.message}</p>
-                      )}
                     </motion.div>
-                  </div>
 
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <label className="block mb-2 font-medium">Email</label>
-                    <Input 
-                      {...form.register("email")}
-                      type="email" 
-                      placeholder="Your email"
-                    />
-                    {form.formState.errors.email && (
-                      <p className="mt-1 text-sm text-red-500">{form.formState.errors.email.message}</p>
-                    )}
-                  </motion.div>
-
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <label className="block mb-2 font-medium">Service Type</label>
-                    <Select
-                      value={form.watch("serviceType")}
-                      onValueChange={(value) => {
-                        form.setValue("serviceType", value, {
-                          shouldValidate: true
-                        });
-                      }}
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a service" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="sliding">Sliding Gate Service</SelectItem>
-                        <SelectItem value="swing">Swing Gate Service</SelectItem>
-                        <SelectItem value="remote">Remote & Access Control</SelectItem>
-                        <SelectItem value="emergency">Emergency Repair</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {form.formState.errors.serviceType && (
-                      <p className="mt-1 text-sm text-red-500">{form.formState.errors.serviceType.message}</p>
-                    )}
-                  </motion.div>
+                      <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Message</FormLabel>
+                            <FormControl>
+                              <Textarea 
+                                placeholder="Please describe your gate issue or service needs" 
+                                className="min-h-[120px]"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </motion.div>
 
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <label className="block mb-2 font-medium">Message</label>
-                    <Textarea 
-                      {...form.register("message")}
-                      placeholder="Please describe your gate issue or service needs" 
-                      className="min-h-[120px]"
-                    />
-                    {form.formState.errors.message && (
-                      <p className="mt-1 text-sm text-red-500">{form.formState.errors.message.message}</p>
-                    )}
-                  </motion.div>
-
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button type="submit" className="w-full" size="lg">
-                      Send Message
-                    </Button>
-                  </motion.div>
-                </form>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Button type="submit" className="w-full" size="lg">
+                        Send Message
+                      </Button>
+                    </motion.div>
+                  </form>
+                </Form>
               </CardContent>
             </Card>
           </motion.div>
