@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Phone, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [location] = useLocation();
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -17,6 +18,11 @@ export function Header() {
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('/#')) {
       e.preventDefault();
+      // If we're not on the home page, navigate there first
+      if (location !== '/') {
+        window.location.href = '/'; // Corrected to navigate to '/'
+        return;
+      }
       const element = document.querySelector(href.substring(1));
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
