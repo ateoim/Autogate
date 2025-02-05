@@ -20,7 +20,7 @@ export function Header() {
       e.preventDefault();
       // If we're not on the home page, navigate there first
       if (location !== '/') {
-        window.location.href = '/'; // Corrected to navigate to '/'
+        window.location.href = href; // This will navigate to home and then the hash will scroll
         return;
       }
       const element = document.querySelector(href.substring(1));
@@ -102,8 +102,14 @@ export function Header() {
               <Phone className="h-5 w-5 text-primary" />
               <span className="font-semibold">0424 454 654</span>
             </a>
-            <Button asChild className="bg-primary text-white hover:bg-primary/90 transition-colors">
-              <a href="tel:0424454654">
+            <Button 
+              asChild 
+              className="bg-primary text-white hover:bg-primary/90 transition-colors"
+            >
+              <a 
+                href="/#contact"
+                onClick={(e) => scrollToSection(e, '/#contact')}
+              >
                 24/7 Emergency Service
               </a>
             </Button>
