@@ -12,23 +12,19 @@ export function Header() {
     { href: "/services", label: "Services" },
     { href: "/about", label: "About Us" },
     { href: "/gallery", label: "Gallery" },
-    { href: "/#contact", label: "Contact" }
+    { href: "/contact", label: "Contact" }
   ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('/#')) {
+    // Only handle scroll behavior for home page sections
+    if (href.startsWith('/#') && location === '/') {
       e.preventDefault();
-      // If we're not on the home page, navigate there first
-      if (location !== '/') {
-        window.location.href = href; // This will navigate to home and then the hash will scroll
-        return;
-      }
       const element = document.querySelector(href.substring(1));
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
-    setIsOpen(false); // Close mobile menu after clicking
+    setIsOpen(false);
   };
 
   return (
@@ -106,12 +102,9 @@ export function Header() {
               asChild 
               className="bg-primary text-white hover:bg-primary/90 transition-colors"
             >
-              <a 
-                href="/#contact"
-                onClick={(e) => scrollToSection(e, '/#contact')}
-              >
+              <Link href="/contact">
                 24/7 Emergency Service
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
