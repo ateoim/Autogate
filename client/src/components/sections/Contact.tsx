@@ -23,6 +23,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import emailjs from '@emailjs/browser';
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
