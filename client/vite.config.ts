@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { themePlugin } from '@replit/vite-plugin-shadcn-theme-json';
-import { runtimeErrorModal } from '@replit/vite-plugin-runtime-error-modal';
+import themePlugin from '@replit/vite-plugin-shadcn-theme-json';
+import runtimeErrorModal from '@replit/vite-plugin-runtime-error-modal';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,16 +18,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
-    // Optimize chunks for better performance
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'wouter'],
-          ui: ['@/components/ui']
-        }
-      }
-    }
+    sourcemap: true
   },
   // Optimize serving of static assets
   server: {
