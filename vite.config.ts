@@ -11,13 +11,12 @@ export default defineConfig({
   plugins: [react(), runtimeErrorOverlay(), themePlugin()],
   resolve: {
     alias: {
-      "@db": path.resolve(__dirname, "db"),
-      "@": path.resolve(__dirname, "client", "src"),
-    },
+      "@": path.resolve(__dirname, "client", "src")
+    }
   },
   root: path.resolve(__dirname, "client"),
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
-    emptyOutDir: true,
-  },
+    emptyOutDir: true
+  }
 });

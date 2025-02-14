@@ -13,9 +13,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@db': path.resolve(__dirname, '../db'),
-    },
+      '@': path.resolve(__dirname, './src')
+    }
   },
   build: {
     outDir: 'dist',
@@ -25,14 +24,14 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'wouter'],
-          ui: ['@/components/ui'],
-        },
-      },
-    },
+          ui: ['@/components/ui']
+        }
+      }
+    }
   },
   // Optimize serving of static assets
   server: {
     port: 5000,
-    host: true,
-  },
+    host: true
+  }
 });

@@ -22,16 +22,12 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  email: z.string()
-    .min(1, "Email is required")
-    .includes("@", "Email must contain '@' symbol")
-    .email("Invalid email format"),
-  phone: z.string()
-    .min(1, "Phone number is required")
-    .regex(/^\d+$/, "Phone number must contain only digits"),
+  email: z.string().email("Invalid email").min(1, "Email is required"),
+  phone: z.string().min(1, "Phone number is required"),
   serviceType: z.string().min(1, "Please select a service type"),
   message: z.string().min(1, "Message is required"),
 });
@@ -40,6 +36,8 @@ type FormData = z.infer<typeof formSchema>;
 
 export function Contact() {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,12 +49,43 @@ export function Contact() {
     },
   });
 
-  const handleSubmit = (data: FormData) => {
-    toast({
-      title: "Message sent",
-      description: "We'll get back to you as soon as possible.",
-    });
-    form.reset();
+  const handleSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    try {
+      const formData = new FormData();
+      
+      // Add form-name field that Netlify requires
+      formData.append("form-name", "contact");
+      
+      // Add all form fields
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString()
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      toast({
+        title: "Message sent",
+        description: "We'll get back to you as soon as possible.",
+      });
+      form.reset();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -85,8 +114,30 @@ export function Contact() {
                 <CardTitle className="text-2xl text-center">Contact Form</CardTitle>
               </CardHeader>
               <CardContent>
+                {/* Add these hidden inputs for Netlify Forms */}
+                <form 
+                  name="contact" 
+                  data-netlify="true" 
+                  hidden
+                >
+                  <input type="text" name="name" />
+                  <input type="email" name="email" />
+                  <input type="tel" name="phone" />
+                  <input type="text" name="serviceType" />
+                  <textarea name="message"></textarea>
+                </form>
+
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+                  <form 
+                    onSubmit={form.handleSubmit(handleSubmit)} 
+                    className="space-y-6"
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                  >
+                    {/* Add the required hidden input */}
+                    <input type="hidden" name="form-name" value="contact" />
+                    
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-4">
                         <FormField
@@ -198,8 +249,8 @@ export function Contact() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Button type="submit" className="w-full" size="lg">
-                        Send Message
+                      <Button type="submit" disabled={isSubmitting} className="w-full" size="lg">
+                        {isSubmitting ? "Sending..." : "Send Message"}
                       </Button>
                     </motion.div>
                   </form>
